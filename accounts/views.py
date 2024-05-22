@@ -18,9 +18,8 @@ class UserRegistrationView(TemplateView):
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return HttpResponseRedirect(
-                reverse_lazy('transactions:transaction_report')
-            )
+            return HttpResponseRedirect(reverse_lazy('transactions:transaction_report'))
+        
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -34,21 +33,11 @@ class UserRegistrationView(TemplateView):
             address.save()
 
             login(self.request, user)
-            messages.success(
-                self.request,
-                (
-                    f'Thank You For Creating A Bank Account. '
-                    f'Your Account Number is {user.account.account_no}. '
-                )
-            )
+            messages.success( self.request, (f'Thank You For Creating A Bank Account. ' f'Your Account Number is {user.account.account_no}. '))
+
             return HttpResponseRedirect(reverse_lazy('transactions:deposit_money'))
             
-        return self.render_to_response(
-            self.get_context_data(
-                registration_form=registration_form,
-                address_form=address_form
-            )
-        )
+        return self.render_to_response(self.get_context_data( registration_form=registration_form, address_form=address_form))
 
     def get_context_data(self, **kwargs):
         if 'registration_form' not in kwargs:
