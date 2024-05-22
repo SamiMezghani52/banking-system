@@ -17,7 +17,6 @@ class UserRegistrationView(TemplateView):
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
             return HttpResponseRedirect(reverse_lazy('transactions:transaction_report'))
-        
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
