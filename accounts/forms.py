@@ -33,9 +33,7 @@ class UserAddressForm(forms.ModelForm):
 
 
 class UserRegistrationForm(UserCreationForm):
-    account_type = forms.ModelChoiceField(
-        queryset=BankAccountType.objects.all()
-    )
+    account_type = forms.ModelChoiceField(queryset=BankAccountType.objects.all())
     gender = forms.ChoiceField(choices=GENDER_CHOICE)
     birth_date = forms.DateField()
 
@@ -78,9 +76,6 @@ class UserRegistrationForm(UserCreationForm):
                 gender=gender,
                 birth_date=birth_date,
                 account_type=account_type,
-                account_no=(
-                    user.id +
-                    settings.ACCOUNT_NUMBER_START_FROM
-                )
+                account_no=(user.id +settings.ACCOUNT_NUMBER_START_FROM)
             )
         return user

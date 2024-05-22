@@ -7,9 +7,7 @@ from django.views.generic import TemplateView, RedirectView
 
 from .forms import UserRegistrationForm, UserAddressForm
 
-
 User = get_user_model()
-
 
 class UserRegistrationView(TemplateView):
     model = User
